@@ -2,6 +2,7 @@ import React from 'react';
 import './assets/css/bootstrap.min.css';
 import "./App.css"
 import uuid from "uuid";
+import { CSSTransitionGroup } from 'react-transition-group'
 import {InputBox} from "./components/InputBox";
 import {ProgressBar} from "react-bootstrap";
 
@@ -62,16 +63,16 @@ class App extends React.Component{
                       <div className="todo-wrap">
 
                           <InputBox onAddTodo={this.addTodo} />
-                          
-                          {/*<form className="form-inline" onSubmit={this.addTodo}>
-                            <input type="text" className="form-control mb-2 mr-sm-2"
-                                   placeholder="Add a todo..." id="input-todo" />
-                            <button type="submit" className="btn btn-primary mb-2">Add</button>
-                          </form>*/}
 
-                          { (progress > 0) &&
-                            <ProgressBar now={progress} label={`${progress}% Completed`} className="progress-container" />
-                          }
+                          <CSSTransitionGroup
+                            transitionName="animate"
+                            transitionEnterTimeout={500}
+                            transitionLeaveTimeout={300}>
+                            { (progress > 0) &&
+                              <ProgressBar now={progress} label={`${progress}% Completed`} className="progress-container" />
+                            }
+                          </CSSTransitionGroup>
+                          
 
                           <ul className="list-group">
                               {this.state.todos.map (i  => {
@@ -98,7 +99,7 @@ class App extends React.Component{
               <div className="container">
                   <footer className="pt-4 my-md-5 pt-md-5 border-top">
                       <div className="row">
-
+                        <p>Made with <span role="img" aria-label="love">❤️</span> by <a href="http://www.rashidul.xyz">Rashidul Hasan</a></p>
                       </div>
                   </footer>
               </div>

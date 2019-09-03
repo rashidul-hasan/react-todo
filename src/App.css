@@ -5,3 +5,22 @@
 	margin-bottom: 10px; 
 	transition: all .5s ease-in-out;
 }
+
+/* animation */
+.animate-enter {
+  opacity: 0.01;
+}
+
+.animate-enter.animate-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.animate-leave {
+  opacity: 1;
+}
+
+.animate-leave.animate-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
