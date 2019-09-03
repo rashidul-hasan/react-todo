@@ -4,6 +4,7 @@ import "./App.css"
 import uuid from "uuid";
 import { CSSTransitionGroup } from 'react-transition-group'
 import {InputBox} from "./components/InputBox";
+import {TodoList} from "./components/TodoList";
 import {ProgressBar} from "react-bootstrap";
 
 class App extends React.Component{
@@ -13,44 +14,37 @@ class App extends React.Component{
       progress: 0
   }
 
-    onTodoStateChange = (e) => {
-      const id = e.target.value;
-      const isChecked = e.target.checked;
-      const {todos} = this.state;
+  onTodoStateChange = (id, isChecked) => {
+    
+    const {todos} = this.state;
 
-      todos.map(item => {
-          if (item.id == id) {
-              item.done = isChecked;
-          }
-          return item;
-      });
+    todos.map(item => {
+        if (item.id == id) {
+            item.done = isChecked;
+        }
+        return item;
+    });
 
-      // const progress = this.calculatePorgress(todos);
-      this.setState({todos})
-      console.log(e.target.value);
-      console.log(e.target.checked);
+    this.setState({todos});
 
+  }
+
+  addTodo = (todo) => {
+    const {todos} = this.state;
+
+    if (todo === "") {
+      return;
     }
 
-    addTodo = (todo) => {
-      const {todos} = this.state;
-
-      if (todo === "") {
-        return;
-      }
-
-      todos.push({id: uuid(), text: todo, done: false});
-      this.setState({todos});
-    }
+    todos.push({id: uuid(), text: todo, done: false});
+    this.setState({todos});
+  }
 
   render() {
 
-
       const {todos} = this.state;
-
       const progress = this.calculatePorgress(todos);
 
-      console.log({progress});
       return (
           <div className="App">
               <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -73,25 +67,8 @@ class App extends React.Component{
                             }
                           </CSSTransitionGroup>
                           
-
-                          <ul className="list-group">
-                              {this.state.todos.map (i  => {
-                                return (
-                                    <div className="list-group-item" key={i.id}>
-                                        <div className="form-check">
-                                            <input className="form-check-input"
-                                                   type="checkbox" defaultChecked={i.done}
-                                                   onClick={this.onTodoStateChange} value={i.id}/>
-                                                <label className={i.done ? "form-check-label strike-through" : "form-check-label"} htmlFor="gridCheck1">
-                                                    {i.text}
-                                                </label>
-                                        </div>
-
-                                    </div>
-
-                                )
-                              })}
-                          </ul>
+                          <TodoList todos={todos} onTodoStateChange={this.onTodoStateChange}/>
+                          
                       </div>
                   </div>
 
