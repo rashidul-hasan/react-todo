@@ -2,6 +2,16 @@
 
 A simple TODO app built with React.
 
+![React TODO](https://i.imgur.com/jGmJ8JS.png)
+
+
+### Features
+
+* Completion progress
+
+* Edit todo item
+
+* Remove todo item
 
 ### Author
 
