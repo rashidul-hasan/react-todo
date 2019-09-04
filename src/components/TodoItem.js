@@ -5,7 +5,7 @@ export const TodoItem = (props) => {
 
     const i = props.todo;
 
-    const [editButtonVisble, setEditButtonState] = useState(false);
+    const [actionButtonsVisible, setActionButtonsVisibility] = useState(false);
     const [editing, setEditingState] = useState(false);
     const [editedTodo, setEditedTodo] = useState({});
 
@@ -16,16 +16,20 @@ export const TodoItem = (props) => {
     }
 
     const onMouseEnter = (e) => {
-        setEditButtonState(true);
+        setActionButtonsVisibility(true);
     }
 
     const onMouseLeave = (e) => {
-        setEditButtonState(false);
+        setActionButtonsVisibility(false);
     }
 
     const onEditTodo = () => {
         props.onTodoEdited(editedTodo);
         setEditingState(false);
+    }
+
+    const onRemoveTodo = (todo) => {
+        props.onRemoveTodo(todo);
     }
 
     const onEditButtonPress = () => {
@@ -53,8 +57,11 @@ export const TodoItem = (props) => {
                         <button className="btn btn-link" onClick={onEditTodo}>Save</button>
                     </>
                 }
-                {(editButtonVisble && !editing) &&
-                    <button className="btn btn-link" onClick={() => onEditButtonPress(i)}>Edit</button>
+                {(actionButtonsVisible && !editing) &&
+                    <>
+                        <button className="btn btn-link" onClick={() => onEditButtonPress(i)}>Edit</button>
+                        <button className="btn btn-link text-danger" onClick={() => onRemoveTodo(i)}>Remove</button>
+                    </>
                 }
                 </div>
             </div>

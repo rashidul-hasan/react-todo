@@ -53,6 +53,16 @@ class App extends React.Component{
     this.setState({todos});
   }
 
+  onRemoveTodo = (todo) => {
+    const {todos} = this.state;
+
+    const reduced = todos.filter(item => {
+        return item.id != todo.id;
+    });
+
+    this.setState({todos: reduced});
+  }
+
   calculatePorgress = (todos) => {
       const total = todos.length;
 
@@ -73,7 +83,7 @@ class App extends React.Component{
       return (
           <div className="App">
               <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-                  {/* <h1 className="display-4">React TODO <span role="img" aria-label="sheep">🤞</span></h1> */}
+                  <h1 className="display-4">React TODO <span role="img" aria-label="sheep">🤞</span></h1>
               </div>
 
               <div className="container">
@@ -94,6 +104,7 @@ class App extends React.Component{
                           
                           <TodoList todos={todos} 
                               onTodoEdited={this.onTodoEdited}
+                              onRemoveTodo={this.onRemoveTodo}
                               onTodoStateChange={this.onTodoStateChange}/>
                           
                       </div>

@@ -8,6 +8,7 @@ export const TodoList = (props) => {
         <ul className="list-group">
           {props.todos.map (i  => <TodoItem todo={i} 
                                     onTodoEdited={props.onTodoEdited}
+                                    onRemoveTodo={props.onRemoveTodo}
                                     onTodoStateChange={props.onTodoStateChange} />)}
       </ul>
     )
