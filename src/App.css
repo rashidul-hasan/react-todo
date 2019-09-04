@@ -9,8 +9,16 @@
 /* todo list */
 .todo-item {
 	font-family: 'Playfair Display', serif;
-	font-size: 18px;
+	font-size: 14px;
 }
+.form-check {
+  padding-left: 0;
+}
+.form-check .btn.btn-link{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 /* animation */
 .animate-enter {
   opacity: 0.01;

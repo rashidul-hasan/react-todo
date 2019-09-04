@@ -40,6 +40,31 @@ class App extends React.Component{
     this.setState({todos});
   }
 
+  onTodoEdited = (editedTodo) => {
+    const {todos} = this.state;
+
+    todos.map(item => {
+        if (item.id == editedTodo.id) {
+            item.text = editedTodo.text;
+        }
+        return item;
+    });
+
+    this.setState({todos});
+  }
+
+  calculatePorgress = (todos) => {
+      const total = todos.length;
+
+      if (total === 0) return 0;
+      let done = 0;
+      todos.map( i => {
+          if (i.done) done++;
+      });
+
+      return Math.ceil((done/total) * 100)
+  }
+  
   render() {
 
       const {todos} = this.state;
@@ -48,7 +73,7 @@ class App extends React.Component{
       return (
           <div className="App">
               <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-                  <h1 className="display-4">React TODO <span role="img" aria-label="sheep">🤞</span></h1>
+                  {/* <h1 className="display-4">React TODO <span role="img" aria-label="sheep">🤞</span></h1> */}
               </div>
 
               <div className="container">
@@ -67,7 +92,9 @@ class App extends React.Component{
                             }
                           </CSSTransitionGroup>
                           
-                          <TodoList todos={todos} onTodoStateChange={this.onTodoStateChange}/>
+                          <TodoList todos={todos} 
+                              onTodoEdited={this.onTodoEdited}
+                              onTodoStateChange={this.onTodoStateChange}/>
                           
                       </div>
                   </div>
@@ -84,17 +111,7 @@ class App extends React.Component{
       );
   }
 
-    calculatePorgress = (todos) => {
-      const total = todos.length;
-
-      if (total === 0) return 0;
-      let done = 0;
-      todos.map( i => {
-          if (i.done) done++;
-      });
-
-      return Math.ceil((done/total) * 100)
-    }
+  
 }
 
 export default App;
